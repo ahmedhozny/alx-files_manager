@@ -1,5 +1,6 @@
+/* eslint-disable import/no-named-as-default */
 import express from 'express';
-import injectRoutes from "./routes";
+import injectRoutes from './routes';
 
 const app = express();
 
@@ -9,6 +10,6 @@ app.listen(port, () => {
   console.log(`API has started listening at port:${port}`);
 });
 
-injectRoutes(app)
+injectRoutes(app);
 
 export default app;

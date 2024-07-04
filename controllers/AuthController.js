@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 const crypto = require('crypto');
 const { MongoClient } = require('mongodb');
 const { v4: uuidv4 } = require('uuid');
@@ -44,15 +45,16 @@ class AuthController {
   static async getDisconnect(req, res) {
     const token = req.headers['x-token'];
     if (!token) {
-      return res.status(401).json({ error: 'Unauthorized' });
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
     }
 
     const key = `auth_${token}`;
     redisClient.del(key, (err, response) => {
       if (response === 1) {
-        return res.status(204).end();
+        res.status(204).end();
       } else {
-        return res.status(401).json({ error: 'Unauthorized' });
+        res.status(401).json({ error: 'Unauthorized' });
       }
     });
   }
